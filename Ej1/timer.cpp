@@ -20,6 +20,73 @@ Timer::Timer(int h, int m, int s, suffix_t sf):
     hour(h), mins(m), segs(s), suffix(sf)
 {check_time();}
 
+void Timer::get_full_time() const {
+    cout << "Time: " << 
+        setfill('0') << setw(2) << this->hour << "h:" << 
+        setfill('0') << setw(2) << this->mins << "m:" << 
+        setfill('0') << setw(2) << this->segs << "s " <<
+        suffix_to_string(this->suffix) << endl;
+}
+
+void Timer::get_full_24() const {
+    cout << "Time: " << 
+        setfill('0') << setw(2) << this->hour + 12*this->suffix << "h:" << 
+        setfill('0') << setw(2) << this->mins << "m:" << 
+        setfill('0') << setw(2) << this->segs << "s " << endl;
+}
+
+int Timer::check_time() const {
+    if (this->hour<0 || this->hour>11) throw invalid_argument("Mal la hora.");
+    if (this->mins<0 || this->mins>59) throw invalid_argument("Mal los minutos.");
+    if (this->segs<0 || this->segs>59) throw invalid_argument("Mal los segundos.");
+    if (suffix!=AM && suffix!=PM) throw invalid_argument("Mal el meridiano.");
+    return 0;
+}
+
+void Timer::set_hour(int h){
+    Timer t(h);
+    this->hour=h;
+}
+
+void Timer::set_mins(int m){
+    Timer(0, m);
+    this->mins=m;
+}
+
+void Timer::set_segs(int s){
+    Timer(0, 0, s);
+    this->segs=s;
+}
+
+void Timer::set_suffix(suffix_t sf){
+    Timer(0, 0, 0, sf);
+    this->suffix=sf;
+}
+
+void Timer::get_hour() const {
+    cout << "Hour: " << setfill('0') << setw(2) << this->hour << "h" << endl;
+}
+
+void Timer::get_mins() const {
+    cout << "Mins: " << setfill('0') << setw(2) << this->mins << "m" << endl;
+}
+
+void Timer::get_segs() const {
+    cout << "Segs: " << setfill('0') << setw(2) << this->segs << "s" << endl;            
+}
+
+void Timer::get_suffix() const {
+    cout << "Suffix: " << suffix_to_string(this->suffix);
+}
+
+string Timer::suffix_to_string(suffix_t sf) const {
+    switch (sf){
+        case AM: return "a.m."; break;
+        case PM: return "p.m."; break;
+        default: return ""; break;
+    }
+}
+
 //misma funcion que el homework1.
 bool str_comps(const string str1, const string str2){
     if (str1[0]=='\0' && str2[0]=='\0') return true;
@@ -28,7 +95,6 @@ bool str_comps(const string str1, const string str2){
 }
 
 suffix_t string_to_suffix(string sf){
-    if (!isspace(sf[2])) 
     if (str_comps(sf, "am")) return AM;
     if (str_comps(sf, "pm")) return PM; 
     throw invalid_argument("Mal el suffix.");
@@ -36,7 +102,7 @@ suffix_t string_to_suffix(string sf){
 
 void handle_setting(setting set, Timer& timer, string command){
     int h=0, m=0, s=0;
-    suffix_t sf;
+    suffix_t sf=AM;
     string forced;
     try{
         //ignoro si hay espacios de mas y dejo el comando solo con lops numeros
@@ -64,11 +130,15 @@ void handle_setting(setting set, Timer& timer, string command){
             //si es el final del comando fuerzo una exception para ingresar los datos.
             forced=command.substr(1);
 
+            cout << command << endl;
+
             //los proximos dos bloques hacen lo mismo para mins y segs.
             if (isdigit(command[1]) && isdigit(command[2])) throw invalid_argument("Mal los mins.");
             m=stoi(command.substr(0, 2));
             command=command.substr(2);
             while (isspace(command[0])) command=command.substr(1);
+
+            cout << command << endl;
 
             forced=command.substr(1);
 
@@ -78,16 +148,27 @@ void handle_setting(setting set, Timer& timer, string command){
             while (isspace(command[0])) command=command.substr(1);
             
             forced=command.substr(1);
+
+            //para el sufijo saco dos caracteres (otra opcion seria invalida).
+            sf=string_to_suffix(command.substr(0, 2));
+            command=command.substr(2);
+            while (isspace(command[0])) command=command.substr(1);
+
+            //si despues de descartar los espacios extra queda alguna letra, tiro un error de que agrego un argumento de mas.
+            //si se termino la linea del comando, fuerzo la misma exception e ingreso los datos.
+            forced=command.substr(1);
+            throw invalid_argument("te pasaste de mambo.");
         }
     }
     catch(invalid_argument &e){
         cout << e.what() <<endl;
     }
     catch(exception &e){
-        Timer(h, m, s);
+        Timer(h, m, s, sf);
         timer.set_hour(h);
         timer.set_mins(m);
         timer.set_segs(s);
+        timer.set_suffix(sf);
     }
 }
 
@@ -102,6 +183,7 @@ void timer_console(){
         while (isspace(command[0])) command=command.substr(1);
 
         if (str_comps(command.substr(0, 5), "/help")) cout << "Help!!" << endl;
+        if (str_comps(command.substr(0, 5), "/exit")) return;
         if (!str_comps(command.substr(0, 5), "/time")) cout << "Mal comando." << endl;
 
         //la primera parte del comando esta bien, la descarto.
@@ -120,7 +202,7 @@ void timer_console(){
                 if (str_comps(command.substr(0, 4), "hour")) {timer.get_hour(); continue;}
                 if (str_comps(command.substr(0, 4), "mins")) {timer.get_mins(); continue;}
                 if (str_comps(command.substr(0, 4), "segs")) {timer.get_segs(); continue;}
-                if (str_comps(command.substr(0, 4), "suffix")) {timer.get_suffix(); continue;}
+                if (str_comps(command.substr(0, 6), "suffix")) {timer.get_suffix(); continue;}
                 if (str_comps(command.substr(0, 4), "24")) {timer.get_full_24(); continue;}
 
                 //fuerzo throw exception si sobran espacios o tabs.
@@ -159,15 +241,9 @@ void timer_console(){
             catch(...){
                 cout << "error?" << endl;
             }
-            
         }
-
-        
-        
-        
-        
-        
-        
-        if (command[0]=='q') return;
+        else{
+            cout << "Command '" << command << "' not found." << endl;
+        }
     }
 }
