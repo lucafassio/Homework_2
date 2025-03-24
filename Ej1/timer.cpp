@@ -173,8 +173,7 @@ void handle_setting(setting set, Timer& timer, string command){
 }
 
 void timer_console(){
-    int hour, mins, segs;
-    string suffix, command, forced;
+    string command, forced;
     Timer timer(2, 30, 0, AM);
     while (true){
         getline(cin, command);
@@ -222,8 +221,6 @@ void timer_console(){
             
         } 
         else if (str_comps(command.substr(0, 3), "set")){
-            int h=0, m=0, s=0;
-            suffix_t sf=AM;
             try {
                 //descarto "set".
                 command=command.substr(4);
@@ -238,8 +235,8 @@ void timer_console(){
                 if (str_comps(command.substr(0, 6), "suffix")) {handle_setting(SUFFIX, timer, command.substr(7)); continue;}
                 if (isdigit(command[0])) {handle_setting(DEFAULT, timer, command); continue;}
             }
-            catch(...){
-                cout << "error?" << endl;
+            catch(exception &e){
+                cout << e.what() << endl;
             }
         }
         else{
