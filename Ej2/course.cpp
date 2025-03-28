@@ -10,10 +10,10 @@ struct qualif{
 };
 
 Student::Student(string name, int ID):
-    name(name), ID(ID), courses()
+    name(name), ID(ID)
 {}
 
-string Student::get_name() const {
+string Student::get_student_name() const {
     return name;
 }
 
@@ -32,19 +32,23 @@ void Student::add_course(int grade, Course* course){
 }
 
 bool Student::operator<(const Student& other) const {
-    return this->name < other.get_name();
+    return this->name < other.get_student_name();
 }
 
 Course::Course(string name):
     students(), name(name)
 {}
 
+string Course::get_course_name() const {
+    return this->name;
+}
+
 void Course::add_student(Student s){
     if (is_full()) throw invalid_argument("Course is full.");
     if (this->exists(s.get_id())) throw invalid_argument("ID taken.");
     
     int grade;
-    cout << s.get_name() << "'s grade: ";
+    cout << s.get_student_name() << "'s grade: ";
     cin >> grade;
 
     s.add_course(grade, this);
@@ -76,7 +80,7 @@ int Course::place_remaining() const {
 
 void Course::students_list() const {
     vector<Student> vec=this->students;
-    if (!vec.size()) {cout << "Course is empty."; return;}
+    if (!vec.size()) {cout << "Course is empty." << endl; return;}
     sort(vec.begin(), vec.end());
     cout << "List of students in " << this->name << " (" << vec.size() << " people)" << endl;
     for (Student e : vec)
@@ -84,7 +88,7 @@ void Course::students_list() const {
 }
 
 ostream& operator<<(ostream& os, const Student& e){
-    os  << "Name: " << e.get_name() << ", "
+    os  << "Name: " << e.get_student_name() << ", "
         << "ID: " << e.get_id() << ", "
         << "average: " << e.get_avg();
     return os;
@@ -98,50 +102,167 @@ Student create_student(){
     int ID;
     cout << "ID: ";
     cin >> ID;
+    if (cin.fail()){
+        cin.clear();
+        cin.ignore(9999,'\n');
+        throw invalid_argument("Invalid input.");
+    }
     return Student(name, ID);
 }
 
-void remove_case(Course &course){
-    int ID;
-    cout << "ID: ";
-    cin >> ID;
-    course.take_student(ID);
+void create_course_case(vector<Course> &courses){
+    string name;
+    cout << "Course name: ";
+    cin.ignore();
+    getline(cin, name);
+    for (Course c : courses)
+        if (c.get_course_name()==name) throw invalid_argument("Course already exists.");
+    courses.push_back(Course(name));
 }
 
-void find_case(Course &course){
-    int ID;
-    cout << "ID: ";
-    cin >> ID;
-    if (course.exists(ID)) cout << "Student " << ID << " is part of this course." << endl;
-    else cout << "Student " << ID << " is not part of this course." << endl;
+void remove_course_case(vector<Course> &courses){
+    show_courses_case(courses);
+    string name;
+    cout << "Select a course: ";
+    cin.ignore();
+    getline(cin, name);
+    for (int i=0; i<(int)courses.size(); i++)
+        if (courses[i].get_course_name()==name){
+            courses.erase(courses.begin()+i);
+            return;
+        }
+    throw runtime_error("Course doesnt exists."); 
 }
 
-void capacity_case(Course &course){
-    if (course.is_full()) cout << "Course is full." << endl;
-    else cout << "There are " << course.place_remaining() << " places remaining" << endl;
+void show_courses_case(vector<Course> &courses){
+    if (!courses.size()) throw runtime_error("No courses available.");
+    cout << "Courses list:" << endl;
+    for (int i=0; i<(int)courses.size(); i++)
+        cout << "- " << courses[i].get_course_name() << endl;
+}
+
+void add_student_case(vector<Course> &courses){
+    show_courses_case(courses);
+    string course;
+    cout << "Select a course: ";
+    cin.ignore();
+    getline(cin, course);
+    for (Course c : courses)
+        if (c.get_course_name()==course){
+            Student s=create_student();
+            c.add_student(s);
+            return;
+        }
+    throw runtime_error("Course doesnt exists.");
+}
+
+void remove_student_case(vector<Course> &courses){
+    show_courses_case(courses);
+    string course;
+    cout << "Select a course: ";
+    cin.ignore();
+    getline(cin, course);
+    for (Course c : courses)
+        if (c.get_course_name()==course){
+            int ID;
+            cout << "ID: ";
+            cin >> ID;
+            if (cin.fail()){
+                cin.clear();
+                cin.ignore(9999,'\n');
+                throw invalid_argument("Invalid input.");
+            }
+            c.take_student(ID);
+            return;
+        }
+    throw runtime_error("Course doesnt exists.");    
+}
+
+void find_student_case(vector<Course> &courses){
+    show_courses_case(courses);
+    string course;
+    cout << "Select a course: ";
+    cin.ignore();
+    getline(cin, course);
+    for (Course c : courses)
+        if (c.get_course_name()==course){
+            int ID;
+            cout << "ID: ";
+            cin >> ID;
+            if (cin.fail()){
+                cin.clear();
+                cin.ignore(9999,'\n');
+                throw invalid_argument("Invalid input.");
+            }
+            if (c.exists(ID)) cout << "Student " << ID << " is part of this course." << endl;
+            else cout << "Student " << ID << " is not part of this course." << endl;
+            return;
+        }
+    throw runtime_error("Course doesnt exists.");
+}
+
+void capacity_case(vector<Course> &courses){
+    show_courses_case(courses);
+    string course;
+    cout << "Select a course: ";
+    cin.ignore();
+    getline(cin, course);
+    for (Course c : courses)
+        if (c.get_course_name()==course){
+            if (c.is_full()) cout << "Course is full." << endl;
+            else cout << "There are " << c.place_remaining() << " places remaining" << endl;
+            return;
+        }
+    throw runtime_error("Course doesnt exists.");
+}
+
+void get_students_list_case(vector<Course> &courses){
+    show_courses_case(courses);
+    string course;
+    cout << "Select a course: ";
+    cin.ignore();
+    getline(cin, course);
+    for (Course c : courses)
+        if (c.get_course_name()==course){
+            c.students_list();
+            return;
+        }
+    throw runtime_error("Course doesnt exists.");
 }
 
 void course_console(){
-    Course course("Paradigmas");
+    cout << "========== Ej 2: Course ==========" << endl;
+    vector<Course> courses;
     int selected;
     while (true){
         try{
-            cout << endl << "========== Ej 2: Course ==========" << endl;
-            cout << "1. Add student\n2. Remove student\n3. Find student\n4. Check capacity\n5. Get students\n6. Exit" << endl;
+            cout << endl
+                << "1. Create a new course" << endl
+                << "2. Delete a course" << endl
+                << "3. Courses list" << endl
+                << "4. Add a student to a course" << endl
+                << "5. Remove a student from a course" << endl
+                << "6. Find a student in a course" << endl
+                << "7. Check course capacity" << endl
+                << "8. Get students list" << endl
+                << "9. Exit" << endl;
+            cout << endl << "> ";
             cin >> selected;
             if (cin.fail()){
                 cin.clear();
                 cin.ignore(9999,'\n');
                 throw invalid_argument("Invalid option.");
             }  
-
             switch (selected){
-            case 1: course.add_student(create_student()); break;
-            case 2: remove_case(course); break;
-            case 3: find_case(course); break;
-            case 4: capacity_case(course); break;
-            case 5: course.students_list(); break;
-            case 6: return;
+            case 1: create_course_case(courses); break;
+            case 2: remove_course_case(courses); break;
+            case 3: show_courses_case(courses); break;
+            case 4: add_student_case(courses); break;
+            case 5: remove_student_case(courses); break;
+            case 6: find_student_case(courses); break;
+            case 7: capacity_case(courses); break;
+            case 8: get_students_list_case(courses); break;
+            case 9: return;
             default: throw invalid_argument("Invalid option.");
             }
         }

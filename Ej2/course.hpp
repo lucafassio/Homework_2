@@ -20,7 +20,7 @@ class Student{
         
     public:
         Student(string name, int ID);
-        string get_name() const;
+        string get_student_name() const;
         int get_id() const;
         float get_avg() const;
         void add_course(int nota, Course* course);
@@ -34,6 +34,7 @@ class Course{
 
     public:
         Course(string name);
+        string get_course_name() const;
         void add_student(Student s);
         void take_student(int ID);
         bool exists(int ID);
@@ -46,11 +47,21 @@ ostream& operator<<(ostream& os, const Student& e);
 
 Student create_student();
 
-void remove_case(Course &course);
+void create_course_case(vector<Course> &courses);
 
-void find_case(Course &course);
+void remove_course_case(vector<Course> &courses);
 
-void capacity_case(Course &course);
+void show_courses_case(vector<Course> &courses);
+
+void add_student_case(vector<Course> &courses);
+
+void remove_student_case(vector<Course> &courses);
+
+void find_student_case(vector<Course> &courses);
+
+void capacity_case(vector<Course> &courses);
+
+void get_students_list_case(vector<Course> &courses);
 
 void course_console();
 
