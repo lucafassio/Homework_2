@@ -6,22 +6,44 @@
 using namespace std;
 
 int main(){    
-    Entero num(10);
+    Entero inum(10);
 
-    cout << num.get_value() << endl;
-    num.set_value(15);
-    num.print_value();
+    cout << inum.get_value() << endl;
+    inum.set_value(15);
+    inum.print_value();
 
-    Entero num2(20);
-    num.plus(num2);
+    Entero inum2(20);
+    inum.plus(inum2);
 
-    num.print_value();
+    inum.print_value();
 
-    Entero num3(80);
-    num.minus(num3);
+    Entero inum3(80);
+    inum.minus(inum3);
 
-    num.print_value();
+    inum.print_value();
 
+    inum.times(Entero(2));
+    inum.print_value();
+
+    Real rnum(10.5);
+
+    cout << rnum.get_value() << endl;
+    rnum.set_value(15.5);
+    rnum.print_value();
+
+    Real rnum2(20.7);
+    rnum.plus(rnum2);
+
+    rnum.print_value();
+
+    Real rnum3(80.2);
+    rnum.minus(rnum3);
+
+    rnum.print_value();
+
+    rnum.times(Real(2.4));
+    rnum.print_value();
+    
     Complejo cnum(-5, 2);
     cnum.print_value();
 
@@ -41,14 +63,6 @@ int main(){
 
     cnum.print_value();
     cnum2.print_value();
-
-    cout << cnum.get_real() << endl;
-    cout << cnum.get_complex() << endl;
-    cout << cnum2.get_real() << endl;
-    cout << cnum2.get_complex() << endl;
-    cout << cnum.get_real()*cnum2.get_complex() << endl;
-    cout << cnum2.get_real()*cnum.get_complex() << endl;
-    cout << cnum.get_real()*cnum2.get_complex()+cnum.get_complex()*cnum2.get_real() << endl;
     
     cnum.times(cnum2);
     cnum.print_value();

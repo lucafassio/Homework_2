@@ -21,7 +21,7 @@ Timer::Timer(int h, int m, int s, suffix_t sf):
 {check_time();}
 
 void Timer::get_full_time() const {
-    cout << "Time: " << 
+    cout << 
         setfill('0') << setw(2) << this->hour << "h:" << 
         setfill('0') << setw(2) << this->mins << "m:" << 
         setfill('0') << setw(2) << this->segs << "s " <<
@@ -29,38 +29,42 @@ void Timer::get_full_time() const {
 }
 
 void Timer::get_full_24() const {
-    cout << "Time: " << 
+    cout <<
         setfill('0') << setw(2) << this->hour + 12*this->suffix << "h:" << 
         setfill('0') << setw(2) << this->mins << "m:" << 
         setfill('0') << setw(2) << this->segs << "s " << endl;
 }
 
 int Timer::check_time() const {
-    if (this->hour<0 || this->hour>11) throw invalid_argument("Mal la hora.");
-    if (this->mins<0 || this->mins>59) throw invalid_argument("Mal los minutos.");
-    if (this->segs<0 || this->segs>59) throw invalid_argument("Mal los segundos.");
-    if (suffix!=AM && suffix!=PM) throw invalid_argument("Mal el meridiano.");
+    if (this->hour<0 || this->hour>11) throw invalid_argument("Invalid hour.");
+    if (this->mins<0 || this->mins>59) throw invalid_argument("Invalid mins.");
+    if (this->segs<0 || this->segs>59) throw invalid_argument("Invalid segs.");
+    if (suffix!=AM && suffix!=PM) throw invalid_argument("Invalid suffix.");
     return 0;
 }
 
 void Timer::set_hour(int h){
     Timer t(h);
     this->hour=h;
+    cout << "Hour set to: " << setfill('0') << setw(2) << this->hour << "h" << endl;
 }
 
 void Timer::set_mins(int m){
     Timer(0, m);
     this->mins=m;
+    cout << "Mins set to: " << setfill('0') << setw(2) << this->mins << "m" << endl;
 }
 
 void Timer::set_segs(int s){
     Timer(0, 0, s);
     this->segs=s;
+    cout << "Segs set to: " << setfill('0') << setw(2) << this->segs << "s" << endl;
 }
 
 void Timer::set_suffix(suffix_t sf){
     Timer(0, 0, 0, sf);
     this->suffix=sf;
+    cout << "Suffix set to: " << suffix_to_string(this->suffix) << endl;
 }
 
 void Timer::get_hour() const {
@@ -97,7 +101,7 @@ bool str_comps(const string str1, const string str2){
 suffix_t string_to_suffix(string sf){
     if (str_comps(sf, "am")) return AM;
     if (str_comps(sf, "pm")) return PM; 
-    throw invalid_argument("Mal el suffix.");
+    throw invalid_argument("Invalid suffix.");
 };
 
 void handle_setting(setting set, Timer& timer, string command){
@@ -122,7 +126,7 @@ void handle_setting(setting set, Timer& timer, string command){
              * - descarto el numero (no va a ser mayor de dos digitos).
              * - si quedo algun espacio lo descarto tambien.
              */
-            if (isdigit(command[1]) && isdigit(command[2])) throw invalid_argument("Mal la hora.");         
+            if (isdigit(command[1]) && isdigit(command[2])) throw invalid_argument("Invalid hour.");         
             h=stoi(command.substr(0, 2));
             command=command.substr(2);
             while (isspace(command[0])) command=command.substr(1);
@@ -130,19 +134,15 @@ void handle_setting(setting set, Timer& timer, string command){
             //si es el final del comando fuerzo una exception para ingresar los datos.
             forced=command.substr(1);
 
-            cout << command << endl;
-
             //los proximos dos bloques hacen lo mismo para mins y segs.
-            if (isdigit(command[1]) && isdigit(command[2])) throw invalid_argument("Mal los mins.");
+            if (isdigit(command[1]) && isdigit(command[2])) throw invalid_argument("Invalid mins.");
             m=stoi(command.substr(0, 2));
             command=command.substr(2);
             while (isspace(command[0])) command=command.substr(1);
 
-            cout << command << endl;
-
             forced=command.substr(1);
 
-            if (isdigit(command[1]) && isdigit(command[2])) throw invalid_argument("Mal los segs.");
+            if (isdigit(command[1]) && isdigit(command[2])) throw invalid_argument("Invalid segs.");
             s=stoi(command.substr(0, 2));
             command=command.substr(2);
             while (isspace(command[0])) command=command.substr(1);
@@ -157,7 +157,7 @@ void handle_setting(setting set, Timer& timer, string command){
             //si despues de descartar los espacios extra queda alguna letra, tiro un error de que agrego un argumento de mas.
             //si se termino la linea del comando, fuerzo la misma exception e ingreso los datos.
             forced=command.substr(1);
-            throw invalid_argument("te pasaste de mambo.");
+            throw invalid_argument("to much arguments.");
         }
     }
     catch(invalid_argument &e){
@@ -169,21 +169,38 @@ void handle_setting(setting set, Timer& timer, string command){
         timer.set_mins(m);
         timer.set_segs(s);
         timer.set_suffix(sf);
+        cout << "Timer set to: ";
+        timer.get_full_time();
     }
 }
 
+void help(){
+    cout << "Command guide:" << endl;
+    cout << "/time get -> shows the timer in 12hs format." << endl;
+    cout << "/time get <24> -> shows the timer in 24hs format." << endl;
+    cout << "/time get <hour/mins/segs/suffix> -> shows an especific part of the timer." << endl;
+    cout << "/time set <hour/mins/segs/suffix> -> sets an especific part of the timer." << endl;
+    cout << "/time set <hour> <OPTIONAL:mins> <OPTIONAL:segs> <OPTIONAL:am/pm> -> sets the entire timer." << endl;
+    cout << "/help -> command guide." << endl;
+    cout << "/exit -> ends the program." << endl;
+}
+
 void timer_console(){
+    cout << "========== Ej 1: Timer ==========" << endl;
+    cout << "Enter '/help' for command guide." << endl;
     string command, forced;
-    Timer timer(2, 30, 0, AM);
+    Timer timer;
     while (true){
+        cout << endl << "> ";
         getline(cin, command);
 
         //ignoro espacios y tabs iniciales.
         while (isspace(command[0])) command=command.substr(1);
 
-        if (str_comps(command.substr(0, 5), "/help")) cout << "Help!!" << endl;
+        if (str_comps(command.substr(0, 5), "/help")) {help(); continue;}
         if (str_comps(command.substr(0, 5), "/exit")) return;
-        if (!str_comps(command.substr(0, 5), "/time")) cout << "Mal comando." << endl;
+        if (str_comps(command.substr(0, 11), "/time reset")) {timer=Timer(0, 0, 0, AM); continue;}
+        if (!str_comps(command.substr(0, 5), "/time")) {cout << "Command '" << command << "' not found." << endl; continue;}
 
         //la primera parte del comando esta bien, la descarto.
         command=command.substr(6);
@@ -208,7 +225,7 @@ void timer_console(){
                 forced=command.substr(1);
 
                 //cualquier especificacion erronea.
-                throw invalid_argument("Comando mal ingresado.");
+                throw invalid_argument("Wrong input.");
             }
             catch(invalid_argument &e){
                 cout << e.what() << endl;
