@@ -16,9 +16,9 @@ class Student{
     private:
         string name;
         int ID;
-        vector<qualif> courses;
         
     public:
+        vector<qualif> courses;
         Student(string name, int ID);
         string get_student_name() const;
         int get_id() const;
@@ -35,7 +35,7 @@ class Course{
     public:
         Course(string name);
         string get_course_name() const;
-        void add_student(Student s);
+        void add_student(Student& s);
         void take_student(int ID);
         bool exists(int ID);
         bool is_full();
@@ -45,7 +45,7 @@ class Course{
 
 ostream& operator<<(ostream& os, const Student& e);
 
-Student create_student();
+Student create_student(vector<Student> &students);
 
 void create_course_case(vector<Course> &courses);
 
@@ -53,7 +53,7 @@ void remove_course_case(vector<Course> &courses);
 
 void show_courses_case(vector<Course> &courses);
 
-void add_student_case(vector<Course> &courses);
+void add_student_case(vector<Course> &courses, vector<Student> &students);
 
 void remove_student_case(vector<Course> &courses);
 

@@ -19,7 +19,7 @@ class Number{
     public:
         Number(float n);
         virtual float get_value() const;
-        virtual void set_value(int n);
+        virtual void set_value(float n);
         virtual void print_value() const;
         virtual void plus(Number n); 
         virtual void minus(Number n);

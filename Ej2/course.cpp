@@ -22,7 +22,7 @@ int Student::get_id() const {
 }
 
 float Student::get_avg() const {
-    int sum=0;
+    float sum=0;
     for (qualif course : this->courses) sum+=course.grade;
     return sum/(float)courses.size();
 }
@@ -43,9 +43,9 @@ string Course::get_course_name() const {
     return this->name;
 }
 
-void Course::add_student(Student s){
+void Course::add_student(Student& s){
     if (is_full()) throw invalid_argument("Course is full.");
-    if (this->exists(s.get_id())) throw invalid_argument("ID taken.");
+    if (this->exists(s.get_id())) throw invalid_argument("Student already exists in this course.");
     
     int grade;
     cout << s.get_student_name() << "'s grade: ";
@@ -94,11 +94,7 @@ ostream& operator<<(ostream& os, const Student& e){
     return os;
 }
 
-Student create_student(){
-    string name;
-    cout << "Name: ";
-    cin.ignore();
-    getline(cin, name);
+Student create_student(vector<Student> &students){
     int ID;
     cout << "ID: ";
     cin >> ID;
@@ -107,6 +103,14 @@ Student create_student(){
         cin.ignore(9999,'\n');
         throw invalid_argument("Invalid input.");
     }
+    cout << students.size() << endl;
+    for (Student s : students)
+        if (s.get_id()==ID) return s;
+    string name;
+    cout << "Name: ";
+    cin.ignore();
+    getline(cin, name);
+    students.push_back(Student(name, ID));
     return Student(name, ID);
 }
 
@@ -141,15 +145,15 @@ void show_courses_case(vector<Course> &courses){
         cout << "- " << courses[i].get_course_name() << endl;
 }
 
-void add_student_case(vector<Course> &courses){
+void add_student_case(vector<Course> &courses, vector<Student> &students){
     show_courses_case(courses);
     string course;
     cout << "Select a course: ";
     cin.ignore();
     getline(cin, course);
-    for (Course c : courses)
+    for (Course& c : courses)
         if (c.get_course_name()==course){
-            Student s=create_student();
+            Student s=create_student(students);
             c.add_student(s);
             return;
         }
@@ -222,7 +226,7 @@ void get_students_list_case(vector<Course> &courses){
     cout << "Select a course: ";
     cin.ignore();
     getline(cin, course);
-    for (Course c : courses)
+    for (Course& c : courses)
         if (c.get_course_name()==course){
             c.students_list();
             return;
@@ -233,6 +237,7 @@ void get_students_list_case(vector<Course> &courses){
 void course_console(){
     cout << "========== Ej 2: Course ==========" << endl;
     vector<Course> courses;
+    vector<Student> students;
     int selected;
     while (true){
         try{
@@ -257,7 +262,7 @@ void course_console(){
             case 1: create_course_case(courses); break;
             case 2: remove_course_case(courses); break;
             case 3: show_courses_case(courses); break;
-            case 4: add_student_case(courses); break;
+            case 4: add_student_case(courses, students); break;
             case 5: remove_student_case(courses); break;
             case 6: find_student_case(courses); break;
             case 7: capacity_case(courses); break;

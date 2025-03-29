@@ -20,7 +20,7 @@ float Number::get_value() const {
     return this->num;
 }
 
-void Number::set_value(int n){
+void Number::set_value(float n){
     this->num=n;
 }
 
