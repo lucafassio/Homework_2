@@ -1,0 +1,33 @@
+#ifndef FUNCS_H
+#define FUNCS_H
+
+#include "course.hpp"
+#include "student.hpp"
+
+using namespace std;
+
+ostream& operator<<(ostream& os, const shared_ptr<Student> e);
+
+shared_ptr<Student> create_student(vector<Student> &students);
+
+void create_course_case(vector<Course> &courses);
+
+void remove_course_case(vector<Course> &courses);
+
+void clean_students(Course& c, string name);
+
+void show_courses_case(vector<Course> &courses);
+
+void add_student_case(vector<Course> &courses, vector<Student> &students);
+
+void remove_student_case(vector<Course> &courses);
+
+void find_student_case(vector<Course> &courses);
+
+void capacity_case(vector<Course> &courses);
+
+void get_students_list_case(vector<Course> &courses);
+
+void course_console();
+
+#endif //FUNCS_H

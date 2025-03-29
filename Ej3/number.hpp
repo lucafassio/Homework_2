@@ -21,9 +21,9 @@ class Number{
         virtual float get_value() const;
         virtual void set_value(float n);
         virtual void print_value() const;
-        virtual void plus(Number n); 
-        virtual void minus(Number n);
-        virtual void times(Number n);
+        virtual void plus(const Number& n);
+        virtual void minus(const Number& n); 
+        virtual void times(const Number& n);
 };
 
 
@@ -47,9 +47,9 @@ class Complejo: public Number{
         float get_complex() const;
         void set_complex(float n);
         void print_value() const override;
-        void plus(Complejo n);
-        void minus(Complejo n);
-        void times(Complejo n);
+        void plus(const Number& n) override; 
+        void minus(const Number& n) override; 
+        void times(const Number& n) override;
 };
 
-#endif
+#endif //NUMBER_H

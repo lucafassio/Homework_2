@@ -1,12 +1,11 @@
 #include <iostream>
-#include "Ej1/timer.cpp"
-#include "Ej2/course.cpp"
-#include "Ej3/number.cpp"
+#include "Ej1/timer.hpp"
+//#include "Ej2/funcs.hpp"
+#include "Ej3/number.hpp"
 
 using namespace std;
 
 int main(){    
-    course_console();
     // Entero inum(10);
 
     // cout << inum.get_value() << endl;

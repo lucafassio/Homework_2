@@ -28,15 +28,15 @@ void Number::print_value() const {
     cout << this->num << endl;
 }
 
-void Number::plus(Number n){
+void Number::plus(const Number& n){
     this->set_value(this->get_value()+n.get_value());
 }
 
-void Number::minus(Number n){
+void Number::minus(const Number& n){
     this->set_value(this->get_value()-n.get_value());
 }
 
-void Number::times(Number n){
+void Number::times(const Number& n){
     this->set_value(this->get_value()*n.get_value());
 }
 
@@ -56,20 +56,35 @@ void Complejo::print_value() const {
     cout << endl;
 }
 
-void Complejo::plus(Complejo n){
-    this->set_value(this->get_value()+n.get_value());
-    this->set_complex(this->get_complex()+n.get_complex());
+void Complejo::plus(const Number& n) {
+    const Complejo* c = dynamic_cast<const Complejo*>(&n);
+    if (c) {
+        this->set_value(this->get_value() + c->get_value());
+        this->set_complex(this->get_complex() + c->get_complex());
+    } else {
+        throw invalid_argument("Se esperaba un Complejo");
+    }
 }
 
-void Complejo::minus(Complejo n){
-    this->set_value(this->get_value()-n.get_value());
-    this->set_complex(this->get_complex()-n.get_complex());
+void Complejo::minus(const Number& n) {
+    const Complejo* c = dynamic_cast<const Complejo*>(&n);
+    if (c) {
+        this->set_value(this->get_value() - c->get_value());
+        this->set_complex(this->get_complex() - c->get_complex());
+    } else {
+        throw invalid_argument("Se esperaba un Complejo");
+    }
 }
 
-void Complejo::times(Complejo n){
-    float new_real=this->get_value()*n.get_value()-this->get_complex()*n.get_complex();
-    this->set_complex(this->get_value()*n.get_complex()+this->get_complex()*n.get_value());
-    this->set_value(new_real);
+void Complejo::times(const Number& n) {
+    const Complejo* c = dynamic_cast<const Complejo*>(&n);
+    if (c) {
+        float new_real = this->get_value() * c->get_value() - this->get_complex() * c->get_complex();
+        this->set_complex(this->get_value() * c->get_complex() + this->get_complex() * c->get_value());
+        this->set_value(new_real);
+    } else {
+        throw invalid_argument("Se esperaba un Complejo");
+    }
 }
 /*
 void Number_console(){
