@@ -46,25 +46,21 @@ int Timer::check_time() const {
 void Timer::set_hour(int h){
     Timer t(h);
     this->hour=h;
-    cout << "Hour set to: " << setfill('0') << setw(2) << this->hour << "h" << endl;
 }
 
 void Timer::set_mins(int m){
     Timer(0, m);
     this->mins=m;
-    cout << "Mins set to: " << setfill('0') << setw(2) << this->mins << "m" << endl;
 }
 
 void Timer::set_segs(int s){
     Timer(0, 0, s);
     this->segs=s;
-    cout << "Segs set to: " << setfill('0') << setw(2) << this->segs << "s" << endl;
 }
 
 void Timer::set_suffix(suffix_t sf){
     Timer(0, 0, 0, sf);
     this->suffix=sf;
-    cout << "Suffix set to: " << suffix_to_string(this->suffix) << endl;
 }
 
 void Timer::get_hour() const {
@@ -114,10 +110,10 @@ void handle_setting(setting set, Timer& timer, string command){
 
         //si el usuario especifica cual cambiar, solo modifico ese
         switch (set){
-        case HOUR: timer.set_hour(stoi(command)); break;
-        case MINS: timer.set_mins(stoi(command)); break;
-        case SEGS: timer.set_segs(stoi(command)); break;
-        case SUFFIX: timer.set_suffix(string_to_suffix(command)); break;
+        case HOUR: timer.set_hour(stoi(command)); cout << "Hour set to: " << setfill('0') << setw(2) << this->hour << "h" << endl; break;
+        case MINS: timer.set_mins(stoi(command)); cout << "Mins set to: " << setfill('0') << setw(2) << this->hour << "h" << endl; break;
+        case SEGS: timer.set_segs(stoi(command)); cout << "Segs set to: " << setfill('0') << setw(2) << this->hour << "h" << endl; break;
+        case SUFFIX: timer.set_suffix(string_to_suffix(command)); cout << "Suffix set to: " << setfill('0') << setw(2) << this->hour << "h" << endl; break;
         default:
             /*
              * Linea a linea de lo que hace este bloque:
