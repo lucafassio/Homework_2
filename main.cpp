@@ -6,7 +6,7 @@
 using namespace std;
 
 int main(){    
-    timer_console();
+    course_console();
     // Entero inum(10);
 
     // cout << inum.get_value() << endl;

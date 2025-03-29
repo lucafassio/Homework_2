@@ -6,6 +6,7 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <memory>
 
 using namespace std;
 
@@ -34,8 +35,9 @@ class Course{
 
     public:
         Course(string name);
+        Course(shared_ptr<Course> c);
         string get_course_name() const;
-        void add_student(Student& s);
+        void add_student(shared_ptr<Student> s);
         void take_student(int ID);
         bool exists(int ID);
         bool is_full();
@@ -43,9 +45,9 @@ class Course{
         void students_list() const;
 };
 
-ostream& operator<<(ostream& os, const Student& e);
+ostream& operator<<(ostream& os, const shared_ptr<Student> e);
 
-Student create_student(vector<Student> &students);
+shared_ptr<Student> create_student(vector<Student> &students);
 
 void create_course_case(vector<Course> &courses);
 

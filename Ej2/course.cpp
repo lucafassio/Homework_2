@@ -39,7 +39,9 @@ Course::Course(string name):
     students(), name(name)
 {}
 
-//Hago un shallow copy ya que me interesa duplicar el curso pero que apunte a los mismos ojetos de estudiantes.
+//Hago un shallow copy ya que me interesa duplicar el curso pero que apunte a los mismos objetos de estudiantes.
+//Como los estudiantes estan almacenados en un vector de shared_ptr, se copia el vector por lo que apunta a
+//los mismo lugares de memoria, no se duplican los estudiantes.
 Course::Course(shared_ptr<Course> c):
     students(c->students), name(c->name + "_copy")
 {}
@@ -48,30 +50,34 @@ string Course::get_course_name() const {
     return this->name;
 }
 
-void Course::add_student(Student& s){
+void Course::add_student(shared_ptr<Student> s){
     if (is_full()) throw invalid_argument("Course is full.");
-    if (this->exists(s.get_id())) throw invalid_argument("Student already exists in this course.");
+    if (this->exists(s->get_id())) throw invalid_argument("Student already exists in this course.");
     
     int grade;
-    cout << s.get_student_name() << "'s grade: ";
+    cout << s->get_student_name() << "'s grade: ";
     cin >> grade;
 
-    s.add_course(grade, this);
+    s->add_course(grade, this);
     this->students.push_back(s); 
 }
 
 void Course::take_student(int ID){
-    for (int i=0; i<(int)students.size(); i++)
-        if (this->students[i].get_id()==ID){
+    int i=0;
+    for (auto& s : this->students){
+        if (s->get_id()==ID){
             this->students.erase(this->students.begin()+i);
+            i++;
             return;
         }
+    }
+        
     throw runtime_error("Student doesnt exists.");       
 }
 
 bool Course::exists(int ID){
-    for (Student s : this->students)
-        if (s.get_id()==ID) return true;
+    for (auto& s : this->students)
+        if (s->get_id()==ID) return true;
     return false;
 }
 
@@ -84,22 +90,22 @@ int Course::place_remaining() const {
 }
 
 void Course::students_list() const {
-    vector<Student> vec=this->students;
+    vector<shared_ptr<Student>> vec=this->students;
     if (!vec.size()) {cout << "Course is empty." << endl; return;}
     sort(vec.begin(), vec.end());
     cout << "List of students in " << this->name << " (" << vec.size() << " people)" << endl;
-    for (Student e : vec)
+    for (auto& e : vec)
         cout << e << endl;
 }
 
-ostream& operator<<(ostream& os, const Student& e){
-    os  << "Name: " << e.get_student_name() << ", "
-        << "ID: " << e.get_id() << ", "
-        << "average: " << e.get_avg();
+ostream& operator<<(ostream& os, const shared_ptr<Student> e){
+    os  << "Name: " << e->get_student_name() << ", "
+        << "ID: " << e->get_id() << ", "
+        << "average: " << e->get_avg();
     return os;
 }
 
-Student create_student(vector<Student> &students){
+shared_ptr<Student> create_student(vector<shared_ptr<Student>> &students){
     int ID;
     cout << "ID: ";
     cin >> ID;
@@ -109,14 +115,15 @@ Student create_student(vector<Student> &students){
         throw invalid_argument("Invalid input.");
     }
     cout << students.size() << endl;
-    for (Student s : students)
-        if (s.get_id()==ID) return s;
+    for (auto& s : students)
+        if (s->get_id()==ID) return s;
     string name;
     cout << "Name: ";
     cin.ignore();
     getline(cin, name);
-    students.push_back(Student(name, ID));
-    return Student(name, ID);
+    shared_ptr<Student> student=make_shared<Student>(name, ID);
+    students.push_back(student);
+    return student;
 }
 
 void create_course_case(vector<Course> &courses){
@@ -150,7 +157,21 @@ void show_courses_case(vector<Course> &courses){
         cout << "- " << courses[i].get_course_name() << endl;
 }
 
-void add_student_case(vector<Course> &courses, vector<Student> &students){
+void copy_course_case(vector<Course> &courses){
+    show_courses_case(courses);
+    string name;
+    cout << "Select a course: ";
+    cin.ignore();
+    getline(cin, name);
+    for (Course& c : courses)
+        if (c.get_course_name()==name){
+            courses.push_back(Course(make_shared<Course>(c)));
+            return;
+        }
+    throw runtime_error("Course doesnt exists.");
+}
+
+void add_student_case(vector<Course> &courses, vector<shared_ptr<Student>> &students){
     show_courses_case(courses);
     string course;
     cout << "Select a course: ";
@@ -158,7 +179,7 @@ void add_student_case(vector<Course> &courses, vector<Student> &students){
     getline(cin, course);
     for (Course& c : courses)
         if (c.get_course_name()==course){
-            Student s=create_student(students);
+            shared_ptr<Student> s=create_student(students);
             c.add_student(s);
             return;
         }
@@ -242,7 +263,7 @@ void get_students_list_case(vector<Course> &courses){
 void course_console(){
     cout << "========== Ej 2: Course ==========" << endl;
     vector<Course> courses;
-    vector<Student> students;
+    vector<shared_ptr<Student>> students;
     int selected;
     while (true){
         try{
@@ -250,12 +271,12 @@ void course_console(){
                 << "1. Create a new course" << endl
                 << "2. Delete a course" << endl
                 << "3. Courses list" << endl
-                << "4. Add a student to a course" << endl
-                << "5. Remove a student from a course" << endl
-                << "6. Find a student in a course" << endl
-                << "7. Check course capacity" << endl
-                << "8. Get students list" << endl
-                << "9. Copy a course" << endl
+                << "4. Copy a course" << endl
+                << "5. Add a student to a course" << endl
+                << "6. Remove a student from a course" << endl
+                << "7. Find a student in a course" << endl
+                << "8. Check course capacity" << endl
+                << "9. Get students list" << endl                
                 << "10. Exit" << endl;
             cout << endl << "> ";
             cin >> selected;
@@ -268,12 +289,13 @@ void course_console(){
             case 1: create_course_case(courses); break;
             case 2: remove_course_case(courses); break;
             case 3: show_courses_case(courses); break;
-            case 4: add_student_case(courses, students); break;
-            case 5: remove_student_case(courses); break;
-            case 6: find_student_case(courses); break;
-            case 7: capacity_case(courses); break;
-            case 8: get_students_list_case(courses); break;
-            case 9: return;
+            case 4: copy_course_case(courses); break;
+            case 5: add_student_case(courses, students); break;
+            case 6: remove_student_case(courses); break;
+            case 7: find_student_case(courses); break;
+            case 8: capacity_case(courses); break;
+            case 9: get_students_list_case(courses); break;
+            case 10: return;
             default: throw invalid_argument("Invalid option.");
             }
         }

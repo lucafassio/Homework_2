@@ -71,7 +71,7 @@ void Complejo::times(Complejo n){
     this->set_complex(this->get_value()*n.get_complex()+this->get_complex()*n.get_value());
     this->set_value(new_real);
 }
-
+/*
 void Number_console(){
     cout << "========== Ej 3: Number ==========" << endl;
     int selected;
@@ -149,4 +149,4 @@ void Number_console(){
             cout << e.what() << endl;
         }
     }
-}
+}*/
