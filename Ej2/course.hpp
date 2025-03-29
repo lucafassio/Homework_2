@@ -30,7 +30,7 @@ class Student{
 class Course{
     private:
         string name;
-        vector<Student> students;
+        vector<shared_ptr<Student>> students;
 
     public:
         Course(string name);

@@ -39,10 +39,10 @@ class Timer{
         void set_segs(int s);
         void set_suffix(suffix_t sf);
         
-        void get_hour() const;
-        void get_mins() const;
-        void get_segs() const;
-        void get_suffix() const;
+        int get_hour() const;
+        int get_mins() const;
+        int get_segs() const;
+        string get_suffix() const;
         void get_full_time() const;
         void get_full_24() const;
 

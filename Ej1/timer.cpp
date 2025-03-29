@@ -63,20 +63,20 @@ void Timer::set_suffix(suffix_t sf){
     this->suffix=sf;
 }
 
-void Timer::get_hour() const {
-    cout << "Hour: " << setfill('0') << setw(2) << this->hour << "h" << endl;
+int Timer::get_hour() const {
+    return this->hour;
 }
 
-void Timer::get_mins() const {
-    cout << "Mins: " << setfill('0') << setw(2) << this->mins << "m" << endl;
+int Timer::get_mins() const {
+    return this->mins;
 }
 
-void Timer::get_segs() const {
-    cout << "Segs: " << setfill('0') << setw(2) << this->segs << "s" << endl;            
+int Timer::get_segs() const {
+    return this->segs;
 }
 
-void Timer::get_suffix() const {
-    cout << "Suffix: " << suffix_to_string(this->suffix);
+string Timer::get_suffix() const {
+    return suffix_to_string(this->suffix);
 }
 
 string Timer::suffix_to_string(suffix_t sf) const {
@@ -110,10 +110,10 @@ void handle_setting(setting set, Timer& timer, string command){
 
         //si el usuario especifica cual cambiar, solo modifico ese
         switch (set){
-        case HOUR: timer.set_hour(stoi(command)); cout << "Hour set to: " << setfill('0') << setw(2) << this->hour << "h" << endl; break;
-        case MINS: timer.set_mins(stoi(command)); cout << "Mins set to: " << setfill('0') << setw(2) << this->hour << "h" << endl; break;
-        case SEGS: timer.set_segs(stoi(command)); cout << "Segs set to: " << setfill('0') << setw(2) << this->hour << "h" << endl; break;
-        case SUFFIX: timer.set_suffix(string_to_suffix(command)); cout << "Suffix set to: " << setfill('0') << setw(2) << this->hour << "h" << endl; break;
+        case HOUR: timer.set_hour(stoi(command)); cout << "Hour set to: " << setfill('0') << setw(2) << timer.get_hour() << "h" << endl; break;
+        case MINS: timer.set_mins(stoi(command)); cout << "Mins set to: " << setfill('0') << setw(2) << timer.get_hour() << "m" << endl; break;
+        case SEGS: timer.set_segs(stoi(command)); cout << "Segs set to: " << setfill('0') << setw(2) << timer.get_hour() << "s" << endl; break;
+        case SUFFIX: timer.set_suffix(string_to_suffix(command)); cout << "Suffix set to: " << setfill('0') << setw(2) << timer.get_suffix() << endl; break;
         default:
             /*
              * Linea a linea de lo que hace este bloque:

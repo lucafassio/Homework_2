@@ -71,3 +71,82 @@ void Complejo::times(Complejo n){
     this->set_complex(this->get_value()*n.get_complex()+this->get_complex()*n.get_value());
     this->set_value(new_real);
 }
+
+void Number_console(){
+    cout << "========== Ej 3: Number ==========" << endl;
+    int selected;
+    while (true){
+        try{
+            cout << endl
+                << "1. Create a new number" << endl
+                << "2. Add two numbers" << endl
+                << "3. Subtract two numbers" << endl
+                << "4. Multiply two numbers" << endl
+                << "5. Print number" << endl
+                << "6. Exit" << endl;
+            cin >> selected;
+            if (cin.fail()){
+                cin.clear();
+                cin.ignore(9999,'\n');
+                throw invalid_argument("Invalid input.");
+            }
+            switch (selected){
+                case 1: {
+                    int type;
+                    cout << "Select a type of number:" << endl
+                        << "1. Entero" << endl
+                        << "2. Real" << endl
+                        << "3. Complejo" << endl;
+                    cin >> type;
+                    if (cin.fail()){
+                        cin.clear();
+                        cin.ignore(9999,'\n');
+                        throw invalid_argument("Invalid input.");
+                    }
+                    float n, c=0;
+                    cout << "Number: ";
+                    cin >> n;
+                    if (cin.fail()){
+                        cin.clear();
+                        cin.ignore(9999,'\n');
+                        throw invalid_argument("Invalid input.");
+                    }
+                    if (type==3){
+                        cout << "Complex part: ";
+                        cin >> c;
+                        if (cin.fail()){
+                            cin.clear();
+                            cin.ignore(9999,'\n');
+                            throw invalid_argument("Invalid input.");
+                        }
+                    }
+                    if (type==1) Entero(n);
+                    else if (type==2) Real(n);
+                    else if (type==3) Complejo(n, c);
+                    else throw invalid_argument("Invalid type of number.");
+                    break;
+                }
+                case 2: {
+                    // Add two numbers
+                    break;
+                }
+                case 3: {
+                    // Subtract two numbers
+                    break;
+                }
+                case 4: {
+                    // Multiply two numbers
+                    break;
+                }
+                case 5: {
+                    // Print number
+                    break;
+                }
+                case 6:
+                    return;
+            }
+        } catch (const exception& e) {
+            cout << e.what() << endl;
+        }
+    }
+}

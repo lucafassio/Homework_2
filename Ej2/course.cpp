@@ -39,6 +39,11 @@ Course::Course(string name):
     students(), name(name)
 {}
 
+//Hago un shallow copy ya que me interesa duplicar el curso pero que apunte a los mismos ojetos de estudiantes.
+Course::Course(shared_ptr<Course> c):
+    students(c->students), name(c->name + "_copy")
+{}
+
 string Course::get_course_name() const {
     return this->name;
 }
@@ -250,7 +255,8 @@ void course_console(){
                 << "6. Find a student in a course" << endl
                 << "7. Check course capacity" << endl
                 << "8. Get students list" << endl
-                << "9. Exit" << endl;
+                << "9. Copy a course" << endl
+                << "10. Exit" << endl;
             cout << endl << "> ";
             cin >> selected;
             if (cin.fail()){
