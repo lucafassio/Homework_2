@@ -1,30 +1,30 @@
-// #ifndef BANK_H
-// #define BANK_H
+#ifndef ACCOUNT_H
+#define ACCOUNT_H
 
-// #include <iostream>
-// #include <iomanip>
-// #include <string>
-// #include <vector>
-// #include <algorithm>
-// #include <cmath>
-// #include <cstdlib>
-// #include <ctime>
+#include <iostream>
+#include <iomanip>
+#include <string>
+#include <vector>
+#include <algorithm>
+#include <cmath>
+#include <cstdlib>
+#include <ctime>
 
-// using namespace std;
+using namespace std;
 
-// class Account{
-//     protected:
-//         double balance;
-//         string titularCuenta;
+class Account{
+    protected:
+        double balance;
+        string titularCuenta;
 
-//     public:
-//         Account(double balanceInicial, const string& titular);
-//         double get_balance() const;
-//         string get_titular() const;
-//         void depositar(double cantidad);
+    public:
+        Account(double balanceInicial, const string& titular);
+        double get_balance() const;
+        void depositar(double cantidad);
 
-//         virtual void retirar(double cantidad) = 0;
-//         virtual void mostrarInfo() const = 0; 
-// };
+        virtual void retirar(double cantidad) = 0;
+        virtual void mostrarInfo() = 0;
+        friend class Bank;
+};
 
-// #endif // BANK_H
+#endif // ACCOUNT_H
