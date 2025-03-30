@@ -1,5 +1,4 @@
 #include "funcs.hpp"
-#include "timer.hpp"
 
 //misma funcion que el homework1.
 bool str_comps(const string str1, const string str2){

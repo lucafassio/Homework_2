@@ -6,6 +6,8 @@
 #include <string>
 #include <cctype>
 
+#include "timer.hpp"
+
 bool str_comps(const string str1, const string str2);
 
 suffix_t string_to_suffix(string sf);

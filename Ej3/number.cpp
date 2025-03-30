@@ -91,81 +91,91 @@ void Complejo::times(const Number& n) {
 }
 
 //=====Console=====//
-void Number_console(){
-    cout << "========== Ej 3: Number ==========" << endl;
-    int selected;
-    while (true){
-        try{
-            cout << endl
-                << "1. Create a new number" << endl
-                << "2. Add two numbers" << endl
-                << "3. Subtract two numbers" << endl
-                << "4. Multiply two numbers" << endl
-                << "5. Print number" << endl
-                << "6. Exit" << endl;
-            cin >> selected;
-            if (cin.fail()){
-                cin.clear();
-                cin.ignore(9999,'\n');
-                throw invalid_argument("Invalid input.");
-            }
-            switch (selected){
-                case 1: {
-                    int type;
-                    cout << "Select a type of number:" << endl
-                        << "1. Entero" << endl
-                        << "2. Real" << endl
-                        << "3. Complejo" << endl;
-                    cin >> type;
-                    if (cin.fail()){
-                        cin.clear();
-                        cin.ignore(9999,'\n');
-                        throw invalid_argument("Invalid input.");
-                    }
-                    float n, c=0;
-                    cout << "Number: ";
-                    cin >> n;
-                    if (cin.fail()){
-                        cin.clear();
-                        cin.ignore(9999,'\n');
-                        throw invalid_argument("Invalid input.");
-                    }
-                    if (type==3){
-                        cout << "Complex part: ";
-                        cin >> c;
-                        if (cin.fail()){
-                            cin.clear();
-                            cin.ignore(9999,'\n');
-                            throw invalid_argument("Invalid input.");
-                        }
-                    }
-                    if (type==1) Entero(n);
-                    else if (type==2) Real(n);
-                    else if (type==3) Complejo(n, c);
-                    else throw invalid_argument("Invalid type of number.");
-                    break;
-                }
-                case 2: {
-                    // Add two numbers
-                    break;
-                }
-                case 3: {
-                    // Subtract two numbers
-                    break;
-                }
-                case 4: {
-                    // Multiply two numbers
-                    break;
-                }
-                case 5: {
-                    // Print number
-                    break;
-                }
-                case 6:
-                    return;
-            }
-        } catch (const exception& e) {
-            cout << e.what() << endl;
-        }
+#include <cstdlib> // Para rand() y srand()
+#include <ctime>   // Para time()
+
+void Number_console() {
+    srand(static_cast<unsigned>(time(0))); // Inicializar la semilla para números aleatorios
+
+    try {
+        cout << "Demostración de operaciones con números aleatorios:" << endl;
+
+        // ===== Entero =====
+        int entero1 = rand() % 100; // Número aleatorio entre 0 y 99
+        int entero2 = rand() % 100;
+        Entero e1(entero1);
+        Entero e2(entero2);
+
+        cout << "\nOperaciones con Enteros:" << endl;
+        cout << "Primer número entero: ";
+        e1.print_value();
+        cout << "Segundo número entero: ";
+        e2.print_value();
+
+        e1.plus(e2);
+        cout << "Suma: ";
+        e1.print_value();
+
+        e1.minus(e2);
+        cout << "Resta: ";
+        e1.print_value();
+
+        e1.times(e2);
+        cout << "Multiplicación: ";
+        e1.print_value();
+
+        // ===== Real =====
+        float real1 = static_cast<float>(rand() % 1000) / 10.0f; // Número aleatorio entre 0.0 y 99.9
+        float real2 = static_cast<float>(rand() % 1000) / 10.0f;
+        Real r1(real1);
+        Real r2(real2);
+
+        cout << "\nOperaciones con Reales:" << endl;
+        cout << "Primer número real: ";
+        r1.print_value();
+        cout << "Segundo número real: ";
+        r2.print_value();
+
+        r1.plus(r2);
+        cout << "Suma: ";
+        r1.print_value();
+
+        r1.minus(r2);
+        cout << "Resta: ";
+        r1.print_value();
+
+        r1.times(r2);
+        cout << "Multiplicación: ";
+        r1.print_value();
+
+        // ===== Complejo =====
+        float real_part1 = static_cast<float>(rand() % 100) / 10.0f; // Parte real aleatoria
+        float imag_part1 = static_cast<float>(rand() % 100) / 10.0f; // Parte imaginaria aleatoria
+        float real_part2 = static_cast<float>(rand() % 100) / 10.0f;
+        float imag_part2 = static_cast<float>(rand() % 100) / 10.0f;
+
+        Complejo c1(real_part1, imag_part1);
+        Complejo c2(real_part2, imag_part2);
+
+        cout << "\nOperaciones con Complejos:" << endl;
+        cout << "Primer número complejo: ";
+        c1.print_value();
+        cout << "Segundo número complejo: ";
+        c2.print_value();
+
+        c1.plus(c2);
+        cout << "Suma: ";
+        c1.print_value();
+
+        c1.minus(c2);
+        cout << "Resta: ";
+        c1.print_value();
+
+        c1.times(c2);
+        cout << "Multiplicación: ";
+        c1.print_value();
+
+    } catch (const exception& e) {
+        cout << "Error inesperado: " << e.what() << endl;
     }
 }

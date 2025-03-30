@@ -8,6 +8,7 @@
 using namespace std;
 
 int main(){    
+    Number_console();
     // Entero inum(10);
 
     // cout << inum.get_value() << endl;

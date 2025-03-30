@@ -10,9 +10,6 @@
 
 using namespace std;
 
-class Real;
-class Complejo;
-
 class Number{
     protected:
         float num;
@@ -51,5 +48,7 @@ class Complejo: public Number{
         void minus(const Number& n) override; 
         void times(const Number& n) override;
 };
+
+void Number_console();
 
 #endif //NUMBER_H

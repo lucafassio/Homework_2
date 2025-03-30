@@ -5,7 +5,7 @@
 #define MAX_CAPACITY 20
 
 Course::Course(string name):
-    students(), name(name)
+    name(name), students()
 {}
 
 /*
@@ -14,7 +14,7 @@ Course::Course(string name):
  * los mismo lugares de memoria, no se duplican los estudiantes.
  */
 Course::Course(shared_ptr<Course> c):
-    students(c->students), name(c->name + "_copy")
+  name(c->name + "_copy"), students(c->students)
 {}
 
 string Course::get_course_name() const {
@@ -26,9 +26,11 @@ vector<shared_ptr<Student>> Course::get_students() const {
 }
 
 void Course::add_student(shared_ptr<Student> s){
+    //chequeo si el curso esta lleno o si ya esta anotado.
     if (is_full()) throw invalid_argument("Course is full.");
     if (this->exists(s->get_id())) throw invalid_argument("Student already exists in this course.");
     
+    //pido la nota del estudiante
     int grade;
     cout << s->get_student_name() << "'s grade: ";
     cin >> grade;
