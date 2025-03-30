@@ -18,7 +18,7 @@ class Account{
         string titularCuenta;
 
     public:
-        Account(double balanceInicial, const string& titular);
+        Account(double balanceInicial, string titular);
         double get_balance() const;
         void depositar(double cantidad);
 

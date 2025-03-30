@@ -21,7 +21,7 @@ class CuentaCorriente: public Account{
         shared_ptr<CajaDeAhorro> caja_ahorro;
         
     public:
-        CuentaCorriente(double balanceInicial, const string& titular);
+        CuentaCorriente(double balanceInicial, string titular);
         CuentaCorriente(shared_ptr<CajaDeAhorro> caja);
 
         void retirar(double cantidad) override;

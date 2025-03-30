@@ -23,7 +23,7 @@ class CajaDeAhorro: public Account{
         static const int PENALTY=20;
         
     public:
-        CajaDeAhorro(double balanceInicial, const string& titular);
+        CajaDeAhorro(double balanceInicial, string titular);
 
         void retirar(double cantidad) override;
         void mostrarInfo() override;

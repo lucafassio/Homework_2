@@ -1,7 +1,7 @@
 #include "account.hpp"
 #include "cajaAhorro.hpp"
 
-CajaDeAhorro::CajaDeAhorro(double balanceInicial, const string& titular): 
+CajaDeAhorro::CajaDeAhorro(double balanceInicial, string titular): 
     Account(balanceInicial, titular)
 {}
 

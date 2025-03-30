@@ -1,6 +1,6 @@
 #include "account.hpp"
 
-Account::Account(double balanceInicial, const string& titular): 
+Account::Account(double balanceInicial, string titular): 
     balance(balanceInicial), titularCuenta(titular) 
 {}
 

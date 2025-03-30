@@ -1,12 +1,12 @@
 #include "account.hpp"
 #include "cuentaCorriente.hpp"
 
-CuentaCorriente::CuentaCorriente(double balanceInicial, const string& titular): 
+CuentaCorriente::CuentaCorriente(double balanceInicial, string titular): 
     Account(balanceInicial, titular), caja_ahorro(nullptr)
 {}
 
 CuentaCorriente::CuentaCorriente(shared_ptr<CajaDeAhorro> caja): 
-    Account(caja->balance, caja->titularCuenta), caja_ahorro(move(caja)) 
+    Account(0, caja->titularCuenta), caja_ahorro(move(caja)) 
 {}
 
 void CuentaCorriente::retirar(double ammount){
