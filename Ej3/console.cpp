@@ -3,7 +3,7 @@
 #include "real.hpp"
 #include "complejo.hpp"
 
-void Number_console(){
+void number_console(){
     cout << "========== Ej 3: Number ==========" << endl;
     //inicializa la semilla para números aleatorios.
     srand(static_cast<unsigned>(time(0)));

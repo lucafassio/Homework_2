@@ -12,6 +12,6 @@
 
 using namespace std;
 
-void Number_console();
+void number_console();
 
 #endif //CONSOLE_H

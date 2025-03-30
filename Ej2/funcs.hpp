@@ -1,5 +1,5 @@
-#ifndef FUNCS_H
-#define FUNCS_H
+#ifndef COURSE_FUNCS_H
+#define COURSE_FUNCS_H
 
 #include <iostream>
 #include <iomanip>
@@ -11,8 +11,6 @@
 using namespace std;
 class Course;
 class Student;
-
-ostream& operator<<(ostream& os, const shared_ptr<Student> e);
 
 shared_ptr<Student> create_student(vector<Student> &students);
 
@@ -36,4 +34,4 @@ void get_students_list_case(vector<Course> &courses);
 
 void course_console();
 
-#endif //FUNCS_H
+#endif //COURSE_FUNCS_H

@@ -99,6 +99,7 @@ void timer_console(){
     cout << "Enter '/help' for command guide." << endl;
     string command, forced;
     Timer timer;
+    cin.ignore();
     while (true){
         cout << endl << "> ";
         getline(cin, command);

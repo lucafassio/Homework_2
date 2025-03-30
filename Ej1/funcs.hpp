@@ -1,5 +1,5 @@
-#ifndef FUNCS_H
-#define FUNCS_H
+#ifndef TIMER_FUNCS_H
+#define TIMER_FUNCS_H
 
 #include <iostream>
 #include <iomanip>
@@ -18,4 +18,4 @@ void help();
 
 void timer_console();
 
-#endif //FUNCS_H
+#endif //TIMER_FUNCS_H
