@@ -1,5 +1,6 @@
 #include "number.hpp"
 
+//=====Constructores=====//
 Number::Number(float n):
     num(n)
 {}
@@ -16,6 +17,7 @@ Complejo::Complejo(float r, float c):
     Number(r), complex(c)
 {}
 
+//=====Number=====//
 float Number::get_value() const {
     return this->num;
 }
@@ -40,6 +42,7 @@ void Number::times(const Number& n){
     this->set_value(this->get_value()*n.get_value());
 }
 
+//=====Complejo=====//
 float Complejo::get_complex() const {
     return this->complex;
 }
@@ -86,7 +89,8 @@ void Complejo::times(const Number& n) {
         throw invalid_argument("Se esperaba un Complejo");
     }
 }
-/*
+
+//=====Console=====//
 void Number_console(){
     cout << "========== Ej 3: Number ==========" << endl;
     int selected;
@@ -164,4 +168,4 @@ void Number_console(){
             cout << e.what() << endl;
         }
     }
-}*/
+}
