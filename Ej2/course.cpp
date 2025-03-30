@@ -35,19 +35,26 @@ void Course::add_student(shared_ptr<Student> s){
     cout << s->get_student_name() << "'s grade: ";
     cin >> grade;
 
+    //agrego el curso a la lista de notas del estudiante.
     s->add_course(grade, this);
+
+    //agrego el estudiante al curso.
     this->students.push_back(s); 
 }
 
 void Course::take_student(int ID){
     int i=0;
+
+    //busco el estudiante en el curso por legajo.
     for (auto& s : this->students){
         if (s->get_id()==ID){
             this->students.erase(this->students.begin()+i);
             return;
         }
         i++;
-    }        
+    }
+
+    //si no lo encuentro, lanzo exception.
     throw runtime_error("Student doesnt exists.");       
 }
 
@@ -67,7 +74,11 @@ int Course::place_remaining() const {
 
 void Course::students_list() const {
     vector<shared_ptr<Student>> vec=this->students;
+
+    //chequeo si el curso tiene estudiantes.
     if (!vec.size()) {cout << "Course is empty." << endl; return;}
+
+    //ordeno el vector de estudiantes por nombre.
     sort(vec.begin(), vec.end());
     cout << "List of students in " << this->name << " (" << vec.size() << " people)" << endl;
     for (auto& e : vec)
