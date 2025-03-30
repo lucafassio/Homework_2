@@ -1,5 +1,5 @@
 CXX = g++
-CXXFLAGS = -Wall -std=c++17
+CXXFLAGS = -Wall
 
 # Buscar todos los .cpp en subdirectorios
 SRC = $(wildcard Ej*/**.cpp) main.cpp
