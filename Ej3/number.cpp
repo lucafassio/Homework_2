@@ -111,11 +111,11 @@ void Complejo::times(const Number& n){
 //=====Console=====//
 void Number_console() {
     cout << "========== Ej 3: Number ==========" << endl;
-    //Inicializa la semilla para números aleatorios.
+    //inicializa la semilla para números aleatorios.
     srand(static_cast<unsigned>(time(0)));
 
     try {
-        //Agarro dos valores aleatorios e inicializo como Enteros.
+        //agarro dos valores aleatorios e inicializo como Enteros.
         int entero1 = rand() % 500;
         int entero2 = rand() % 500;
         Entero e1(entero1);
@@ -127,28 +127,28 @@ void Number_console() {
         cout << "Second random number: ";
         e2.toString();
 
-        //Sumo los dos enteros y muestro el resultado.
+        //sumo los dos enteros y muestro el resultado.
         cout << e1.get_value() << " + " << e2.get_value() << " = ";
         e1.plus(e2);
         e1.toString();
 
-        //Devuelvo e1 a su valor original.
+        //devuelvo e1 a su valor original.
         e1.set_value(entero1);
 
-        //Resto los dos enteros y muestro el resultado.
+        //resto los dos enteros y muestro el resultado.
         cout << e1.get_value() << " - " << e2.get_value() << " = ";
         e1.minus(e2);
         e1.toString();
 
-        //Devuelvo e1 a su valor original.
+        //devuelvo e1 a su valor original.
         e1.set_value(entero1);
 
-        //Multiplico los dos enteros y muestro el resultado.
+        //multiplico los dos enteros y muestro el resultado.
         cout << e1.get_value() << " x " << e2.get_value() << " = ";
         e1.times(e2);
         e1.toString();
 
-        //Agarro dos valores aleatorios e inicializo como Reales.
+        //agarro dos valores aleatorios e inicializo como Reales.
         float real1 = static_cast<float>(rand() % 5000) / 10.0f;
         float real2 = static_cast<float>(rand() % 5000) / 10.0f;
         Real r1(real1);
@@ -160,28 +160,28 @@ void Number_console() {
         cout << "Second random number: ";
         r2.toString();
 
-        // Sumo los dos reales y muestro el resultado.
+        //sumo los dos reales y muestro el resultado.
         cout << r1.get_value() << " + " << r2.get_value() << " = ";
         r1.plus(r2);
         r1.toString();
 
-        // Devuelvo r1 a su valor original.
+        //devuelvo r1 a su valor original.
         r1.set_value(real1);
 
-        // Resto los dos reales y muestro el resultado.
+        //resto los dos reales y muestro el resultado.
         cout << r1.get_value() << " - " << r2.get_value() << " = ";
         r1.minus(r2);
         r1.toString();
 
-        // Devuelvo r1 a su valor original.
+        //devuelvo r1 a su valor original.
         r1.set_value(real1);
 
-        // Multiplico los dos reales y muestro el resultado.
+        //multiplico los dos reales y muestro el resultado.
         cout << r1.get_value() << " x " << r2.get_value() << " = ";
         r1.times(r2);
         r1.toString();
 
-        //Agarro cuatro valores aleatorios e inicializo como Complejos.
+        //agarro cuatro valores aleatorios e inicializo como Complejos.
         float real_part1 = static_cast<float>(rand() % 500) / 10.0f;
         float imag_part1 = static_cast<float>(rand() % 500) / 10.0f;
         float real_part2 = static_cast<float>(rand() % 500) / 10.0f;
@@ -195,27 +195,27 @@ void Number_console() {
         cout << "Second random complex number: ";
         c2.toString();
 
-        // Sumo los dos complejos y muestro el resultado.
+        //sumo los dos complejos y muestro el resultado.
         cout << "(" << c1.get_value() << " + " << c1.get_complex() << "i) + ("
              << c2.get_value() << " + " << c2.get_complex() << "i) = ";
         c1.plus(c2);
         c1.toString();
 
-        // Devuelvo c1 a su valor original.
+        //devuelvo c1 a su valor original.
         c1.set_value(real_part1);
         c1.set_complex(imag_part1);
 
-        // Resto los dos complejos y muestro el resultado.
+        //resto los dos complejos y muestro el resultado.
         cout << "(" << c1.get_value() << " + " << c1.get_complex() << "i) - ("
              << c2.get_value() << " + " << c2.get_complex() << "i) = ";
         c1.minus(c2);
         c1.toString();
 
-        // Devuelvo c1 a su valor original.
+        //devuelvo c1 a su valor original.
         c1.set_value(real_part1);
         c1.set_complex(imag_part1);
 
-        // Multiplico los dos complejos y muestro el resultado.
+        //multiplico los dos complejos y muestro el resultado.
         cout << "(" << c1.get_value() << " + " << c1.get_complex() << "i) * ("
              << c2.get_value() << " + " << c2.get_complex() << "i) = ";
         c1.times(c2);
