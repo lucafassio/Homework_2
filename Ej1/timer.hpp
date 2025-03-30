@@ -50,14 +50,4 @@ class Timer{
         string suffix_to_string(suffix_t sf) const;
 };
 
-bool str_comps(const string str1, const string str2);
-
-suffix_t string_to_suffix(string sf);
-
-void handle_setting(setting set, Timer& timer, string command);
-
-void help();
-
-void timer_console();
-
 #endif //TIMER_H
