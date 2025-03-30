@@ -1,4 +1,6 @@
 #include "funcs.hpp"
+#include "student.hpp"
+#include "course.hpp"
 
 shared_ptr<Student> create_student(vector<shared_ptr<Student>> &students){
   int ID;

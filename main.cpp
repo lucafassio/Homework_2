@@ -1,6 +1,8 @@
 #include <iostream>
 #include "Ej1/timer.hpp"
-//#include "Ej2/funcs.hpp"
+#include "Ej2/funcs.hpp"
+#include "Ej2/student.hpp"
+#include "Ej2/course.hpp"
 #include "Ej3/number.hpp"
 
 using namespace std;

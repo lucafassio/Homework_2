@@ -1,8 +1,6 @@
 #ifndef STUDENT_H
 #define STUDENT_H
 
-#include "course.hpp"
-
 #include <iostream>
 #include <iomanip>
 #include <string>
@@ -11,6 +9,7 @@
 #include <memory>
 
 using namespace std;
+class Course;
 
 struct qualif{
   int grade;

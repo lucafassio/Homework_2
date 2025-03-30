@@ -1,10 +1,16 @@
 #ifndef FUNCS_H
 #define FUNCS_H
 
-#include "course.hpp"
-#include "student.hpp"
+#include <iostream>
+#include <iomanip>
+#include <string>
+#include <vector>
+#include <algorithm>
+#include <memory>
 
 using namespace std;
+class Course;
+class Student;
 
 ostream& operator<<(ostream& os, const shared_ptr<Student> e);
 

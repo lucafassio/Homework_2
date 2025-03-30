@@ -1,4 +1,6 @@
+#include "funcs.hpp"
 #include "student.hpp"
+#include "course.hpp"
 
 Student::Student(string name, int ID):
     name(name), ID(ID)

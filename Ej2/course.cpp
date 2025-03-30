@@ -1,3 +1,5 @@
+#include "funcs.hpp"
+#include "student.hpp"
 #include "course.hpp"
 
 #define MAX_CAPACITY 20

@@ -1,8 +1,6 @@
 #ifndef COURSE_H
 #define COURSE_H
 
-#include "student.hpp"
-
 #include <iostream>
 #include <iomanip>
 #include <string>
@@ -11,6 +9,7 @@
 #include <memory>
 
 using namespace std;
+class Student;
 
 class Course{
     private:

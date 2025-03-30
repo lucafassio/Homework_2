@@ -1,0 +1,15 @@
+Segun lo visto en clase:
+
+La agregación representa una relación del tipo has-a entre un objeto que actúa
+como un todo (whole) y sus partes (parts). En este caso, el todo mantiene una
+relación con las partes, pero sin una dependencia total: el ciclo de vida de un
+objeto no depende del otro. Es decir, aunque los objetos están más
+estrechamente relacionados que en una simple asociación, las partes pueden
+existir de manera independiente del todo.
+
+En este caso tenemos a los estudiantes (parts) y una serie decursos (whole). 
+Los estudiantes pueden ser anotados, removidos, buscados, etc. 
+En cuanto al lifetime, se puede eliminar un curso y los estudiantes seguiran existiendo
+o pueden bajarse de un curso sin que este sea eliminado (aunque no tenga a nadie anotado).
+En este caso hay una relación más intima entre los objetos dado que existe una
+acción entre el curso y los estudiantes.
