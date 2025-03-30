@@ -190,13 +190,11 @@ void remove_student_case(vector<Course> &courses){
             c.take_student(ID);
 
             //elimino el curso de la lista de cursos del estudiante.
-            int i=0;
-            for (auto& q : target_student->courses) {
-                if (q.course->get_course_name() == c.get_course_name()) {
-                    target_student->courses.erase(target_student->courses.begin()+i);
+            for (auto it=target_student->courses.begin(); it!=target_student->courses.end(); ++it){
+                if (it->course->get_course_name()==c.get_course_name()){
+                    target_student->courses.erase(it);
                     break;
                 }
-                i++;
             }
             return;
         }
