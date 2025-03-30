@@ -7,6 +7,8 @@
 #include <vector>
 #include <algorithm>
 #include <cmath>
+#include <cstdlib>
+#include <ctime>
 
 using namespace std;
 
@@ -17,21 +19,22 @@ class Number{
         Number(float n);
         virtual float get_value() const;
         virtual void set_value(float n);
-        virtual void print_value() const;
+        virtual void toString() const;
         virtual void plus(const Number& n);
         virtual void minus(const Number& n); 
         virtual void times(const Number& n);
 };
 
-
 class Entero: public Number{
     public:
         Entero(int n);
+        void toString() const override;
 };
 
 class Real: public Number{
     public:
         Real(float n);
+        void toString() const override;
 };
 
 class Complejo: public Number{
@@ -43,7 +46,7 @@ class Complejo: public Number{
 
         float get_complex() const;
         void set_complex(float n);
-        void print_value() const override;
+        void toString() const override;
         void plus(const Number& n) override; 
         void minus(const Number& n) override; 
         void times(const Number& n) override;
