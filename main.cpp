@@ -10,7 +10,7 @@
 #include "Ej3/entero.hpp"
 #include "Ej3/real.hpp"
 #include "Ej3/complejo.hpp"
-#include "Ej3/console.hpp"
+#include "Ej3/tests.hpp"
 
 #include "Ej4/test.hpp"
 

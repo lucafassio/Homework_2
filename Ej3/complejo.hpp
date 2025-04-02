@@ -29,8 +29,6 @@ class Complejo: public Number{
         void plus(const Number& n) override;
         void minus(const Number& n) override;
         void times(const Number& n) override;
-        
-        
 };
 
 #endif //COMPLEJO_HPP

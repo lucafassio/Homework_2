@@ -30,4 +30,6 @@ class Entero: public Number{
         void times(const Number& n) override;
 };
 
+
+
 #endif //ENTERO_HPP

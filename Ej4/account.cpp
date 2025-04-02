@@ -9,6 +9,6 @@ double Account::get_balance() const {
 }
 
 void Account::depositar(double cantidad){
-    if (cantidad > 0) balance += cantidad;
+    if (cantidad>0) balance+=cantidad;
     else throw invalid_argument("Negative deposit amount.");
 }

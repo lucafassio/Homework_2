@@ -18,8 +18,8 @@ void Real::toString() const {
 }
 
 void Real::plus(const Number& n){
-    //convierto el numero en real.
-    const Real* r = dynamic_cast<const Real*>(&n);
+    //convierto el Numero en real.
+    const Real* r=dynamic_cast<const Real*>(&n);
     if (r) this->set_value(this->get_value()+r->get_value());
 
     //si falla el if, se esta tratando operar con otro tipo.
@@ -27,8 +27,8 @@ void Real::plus(const Number& n){
 }
 
 void Real::minus(const Number& n){
-    //convierto el numero en real.
-    const Real* r = dynamic_cast<const Real*>(&n);
+    //convierto el Numero en real.
+    const Real* r=dynamic_cast<const Real*>(&n);
     if (r) this->set_value(this->get_value()-r->get_value());
 
     //si falla el if, se esta tratando operar con otro tipo.
@@ -36,8 +36,8 @@ void Real::minus(const Number& n){
 }
 
 void Real::times(const Number& n){
-    //convierto el numero en real.
-    const Real* r = dynamic_cast<const Real*>(&n);
+    //convierto el Numero en real.
+    const Real* r=dynamic_cast<const Real*>(&n);
     if (r) this->set_value(this->get_value()*r->get_value());
 
     //si falla el if, se esta tratando operar con otro tipo.

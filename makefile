@@ -16,3 +16,8 @@ $(OUT): $(OBJ)
 
 clean:
 	rm -f $(OBJ) $(OUT)
+
+valgrind: $(OUT)
+	clear
+	valgrind --error-exitcode=1 --leak-check=full --show-leak-kinds=all --track-origins=yes -s ./$(OUT)
+	rm $(OUT)

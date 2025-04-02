@@ -24,8 +24,8 @@ void Student::add_course(int grade, Course* course){
     courses.push_back(qualif(grade, course));
 }
 
-bool Student::operator<(const Student& other) const {
-    return this->name < other.get_student_name();
+bool operator<(const shared_ptr<Student>& a, const shared_ptr<Student>& b) {
+    return a->get_student_name() < b->get_student_name();
 }
 
 ostream& operator<<(ostream& os, const shared_ptr<Student> e){

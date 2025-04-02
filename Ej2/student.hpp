@@ -30,8 +30,9 @@ class Student{
         int get_id() const;
         float get_avg() const;
         void add_course(int nota, Course* course);
-        bool operator<(const Student& other) const;
 };
+
+bool operator<(const shared_ptr<Student>& a, const shared_ptr<Student>& b); 
 
 ostream& operator<<(ostream& os, const shared_ptr<Student> e);
 

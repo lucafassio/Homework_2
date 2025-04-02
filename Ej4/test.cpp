@@ -4,7 +4,7 @@ void bank_tests(){
     cout << "========== Ej 4: Bank ==========" << endl;
     cout << endl;
     //creo dos cuentas de ejemplo, una con caja de ahorro y otra sin.
-    auto savings = make_shared<CajaDeAhorro>(1000.0, "John Doe");
+    auto savings=make_shared<CajaDeAhorro>(1000.0, "John Doe");
     CuentaCorriente current(savings);
     CuentaCorriente current2(1000.0, "Jane Doe");
 

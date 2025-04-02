@@ -18,8 +18,8 @@ void Entero::toString() const {
 }
 
 void Entero::plus(const Number& n){
-    //convierto el numero en entero.
-    const Entero* e = dynamic_cast<const Entero*>(&n);
+    //convierto el Numero en entero.
+    const Entero* e=dynamic_cast<const Entero*>(&n);
     if (e) this->set_value(this->get_value()+e->get_value());
 
     //si falla el if, se esta tratando operar con otro tipo.
@@ -27,8 +27,8 @@ void Entero::plus(const Number& n){
 }
 
 void Entero::minus(const Number& n){
-    //convierto el numero en entero.
-    const Entero* e = dynamic_cast<const Entero*>(&n);
+    //convierto el Numero en entero.
+    const Entero* e=dynamic_cast<const Entero*>(&n);
     if (e) this->set_value(this->get_value()-e->get_value());
 
     //si falla el if, se esta tratando operar con otro tipo.
@@ -36,8 +36,8 @@ void Entero::minus(const Number& n){
 }
 
 void Entero::times(const Number& n){
-    //convierto el numero en entero.
-    const Entero* e = dynamic_cast<const Entero*>(&n);
+    //convierto el Numero en entero.
+    const Entero* e=dynamic_cast<const Entero*>(&n);
     if (e) this->set_value(this->get_value()*e->get_value());
 
     //si falla el if, se esta tratando operar con otro tipo.

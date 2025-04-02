@@ -73,18 +73,19 @@ int Course::place_remaining() const {
 }
 
 void Course::students_list() const {
-    vector<shared_ptr<Student>> vec=this->students;
+    vector<shared_ptr<Student>> vec=students;
 
     //chequeo si el curso tiene estudiantes.
     if (!vec.size()) {cout << "Course is empty." << endl; return;}
 
     //ordeno el vector de estudiantes por nombre.
-    sort(vec.begin(), vec.end());
+    sort(vec.begin(), vec.end(), [](const shared_ptr<Student>& a, const shared_ptr<Student>& b) {return a->get_student_name() < b->get_student_name();});
     cout << "List of students in " << this->name << " (" << vec.size() << " people)" << endl;
     for (auto& e : vec)
         cout << e << endl;
 }
 
 bool Course::operator<(const Course& other) const {
-    return this->name < other.get_course_name();
+    if (name < other.get_course_name()) return true;
+    else return false;
 }

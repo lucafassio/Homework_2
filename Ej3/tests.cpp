@@ -1,4 +1,4 @@
-#include "console.hpp"
+#include "tests.hpp"
 #include "entero.hpp"
 #include "real.hpp"
 #include "complejo.hpp"
@@ -10,8 +10,8 @@ void number_console(){
 
     try {
         //agarro dos valores aleatorios e inicializo como Enteros.
-        int entero1 = rand() % 500;
-        int entero2 = rand() % 500;
+        int entero1=rand()%500;
+        int entero2=rand()%500;
         Entero e1(entero1);
         Entero e2(entero2);
         
@@ -43,8 +43,8 @@ void number_console(){
         e1.toString();
 
         //agarro dos valores aleatorios e inicializo como Reales.
-        float real1 = static_cast<float>(rand() % 5000) / 10.0f;
-        float real2 = static_cast<float>(rand() % 5000) / 10.0f;
+        float real1=static_cast<float>(rand()%5000)/10.0f;
+        float real2=static_cast<float>(rand()%5000)/10.0f;
         Real r1(real1);
         Real r2(real2);
 
@@ -76,10 +76,10 @@ void number_console(){
         r1.toString();
 
         //agarro cuatro valores aleatorios e inicializo como Complejos.
-        float real_part1 = static_cast<float>(rand() % 500) / 10.0f;
-        float imag_part1 = static_cast<float>(rand() % 500) / 10.0f;
-        float real_part2 = static_cast<float>(rand() % 500) / 10.0f;
-        float imag_part2 = static_cast<float>(rand() % 500) / 10.0f;
+        float real_part1=static_cast<float>(rand()%500)/10.0f;
+        float imag_part1=static_cast<float>(rand()%500)/10.0f;
+        float real_part2=static_cast<float>(rand()%500)/10.0f;
+        float imag_part2=static_cast<float>(rand()%500)/10.0f;
         Complejo c1(real_part1, imag_part1);
         Complejo c2(real_part2, imag_part2);
 
@@ -114,8 +114,8 @@ void number_console(){
              << c2.get_real() << " + " << c2.get_complex() << "i) = ";
         c1.times(c2);
         c1.toString();
-
-    } catch (const exception& e) {
+    }
+    catch (const exception& e){
         cout << e.what() << endl;
     }
 }
