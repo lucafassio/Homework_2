@@ -100,6 +100,15 @@ void bank_tests(){
     }
     cout << endl;
 
-    //muestro el balance de la cuenta corriente con caja de ahorro luego de retirar.
+    //muestro el balance de la cuenta corriente con caja de ahorro y la caja de ahorro luego de intentar retirar.
     current.mostrarInfo();
+    savings->mostrarInfo();
+    cout << endl;
+
+    //vacio la caja de ahorro.
+    cout << "Emptying savings account..." << endl;
+    savings->retirar(540);
+
+    //no se puede cobrar la multa porque no hay saldo suficiente.
+    savings->mostrarInfo();
 }

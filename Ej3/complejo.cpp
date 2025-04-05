@@ -21,16 +21,17 @@ void Complejo::set_complex(float n){
     this->complex=n;
 }
 
-void Complejo::toString() const {
+string Complejo::toString() const {
+    string output;
     //la complejidad de los prints solo es porque me pone nervioso que se escriban mal los '+' y '-'.
-    if (this->get_real()!=0) cout << to_string(this->get_real()).substr(0, to_string(this->get_real()).find(".")+3);
+    if (this->get_real()!=0) output=to_string(this->get_real()).substr(0, to_string(this->get_real()).find(".")+3);
     else {
-        cout << to_string(this->get_complex()).substr(0, to_string(this->get_complex()).find(".")+3) << "i" << endl;
-        return;
+        output=to_string(this->get_complex()).substr(0, to_string(this->get_complex()).find(".")+3) + "i";
+        return output;
     }
-    if (this->get_complex()>0) cout << " + " << to_string(this->get_complex()).substr(0, to_string(this->get_complex()).find(".")+3) << "i";
-    if (this->get_complex()<0) cout << " - " << to_string(abs(this->get_complex())).substr(0, to_string(abs(this->get_complex())).find(".")+3) << "i";
-    cout << endl;
+    if (this->get_complex()>0) output+=" + " + to_string(this->get_complex()).substr(0, to_string(this->get_complex()).find(".")+3) + "i";
+    if (this->get_complex()<0) output+=" - " + to_string(abs(this->get_complex())).substr(0, to_string(abs(this->get_complex())).find(".")+3) + "i";
+    return output;
 }
 
 void Complejo::plus(const Number& n){

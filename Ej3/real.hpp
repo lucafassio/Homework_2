@@ -24,7 +24,7 @@ class Real: public Number{
         float get_value() const;
         void set_value(float n);
         
-        void toString() const override;
+        string toString() const override;
         void plus(const Number& n) override;
         void minus(const Number& n) override;
         void times(const Number& n) override;

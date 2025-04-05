@@ -13,8 +13,8 @@ void Real::set_value(float n){
     this->num=n;
 }
 
-void Real::toString() const {
-    cout << to_string(this->num).substr(0, to_string(this->num).find(".")+3) << endl;
+string Real::toString() const {
+    return to_string(this->num).substr(0, to_string(this->num).find(".")+3);
 }
 
 void Real::plus(const Number& n){

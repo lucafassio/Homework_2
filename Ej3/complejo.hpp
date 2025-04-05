@@ -25,7 +25,7 @@ class Complejo: public Number{
         void set_real(float n);
         void set_complex(float n);
 
-        void toString() const override;
+        string toString() const override;
         void plus(const Number& n) override;
         void minus(const Number& n) override;
         void times(const Number& n) override;

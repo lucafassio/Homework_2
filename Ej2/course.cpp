@@ -79,7 +79,7 @@ void Course::students_list() const {
     if (!vec.size()) {cout << "Course is empty." << endl; return;}
 
     //ordeno el vector de estudiantes por nombre.
-    sort(vec.begin(), vec.end(), [](const shared_ptr<Student>& a, const shared_ptr<Student>& b) {return a->get_student_name() < b->get_student_name();});
+    sort(vec.begin(), vec.end());
     cout << "List of students in " << this->name << " (" << vec.size() << " people)" << endl;
     for (auto& e : vec)
         cout << e << endl;

@@ -17,7 +17,7 @@ void CajaDeAhorro::mostrarInfo(){
     cout << "Balance: $" << fixed << setprecision(2) << balance << endl;
     this->counter++;
     if (this->counter>this->MAX_SHOWS){
-        this->balance-=this->PENALTY;
+        this->retirar(this->PENALTY);
         cout << "The query limit has been exceeded. A $" << this->PENALTY << " penalty will be charged" << endl;
         cout << "New Balance: $" << balance << endl;
     }

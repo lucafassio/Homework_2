@@ -13,8 +13,8 @@ void Entero::set_value(int n){
     this->num=n;
 }
 
-void Entero::toString() const {
-    cout << to_string(static_cast<int>(this->num)) << endl;
+string Entero::toString() const {
+    return to_string(static_cast<int>(this->num));
 }
 
 void Entero::plus(const Number& n){

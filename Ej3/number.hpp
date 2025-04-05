@@ -14,7 +14,7 @@ using namespace std;
 
 class Number{
     public:
-        virtual void toString() const = 0;
+        virtual string toString() const = 0;
         virtual void plus(const Number& n) = 0;
         virtual void minus(const Number& n) = 0;
         virtual void times(const Number& n) = 0;
